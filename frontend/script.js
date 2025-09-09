@@ -1,5 +1,4 @@
-const API_BASE_URL = 'https://linkedin-profile-search-app-tunnel-egs0wexe.devinapps.com/api';
-const API_AUTH = 'Basic ' + btoa('user:b0d204a4c0e6dd72fb558dcf6e98240c');
+const API_BASE_URL = 'http://localhost:8080/api';
 
 let currentSearchResults = [];
 let currentSearchRequest = {};
@@ -57,7 +56,6 @@ async function handleSearch(event) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': API_AUTH
             },
             body: JSON.stringify(searchRequest)
         });
@@ -155,7 +153,6 @@ async function saveSelectedProfiles() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': API_AUTH
                 },
                 body: JSON.stringify(profile)
             })
@@ -180,11 +177,7 @@ async function loadStoredProfiles() {
     storedLoading.classList.remove('hidden');
     
     try {
-        const response = await fetch(`${API_BASE_URL}/professionals`, {
-            headers: {
-                'Authorization': API_AUTH
-            }
-        });
+        const response = await fetch(`${API_BASE_URL}/professionals`);
         
         if (!response.ok) {
             throw new Error(`Erro ao carregar perfis: ${response.status}`);
@@ -276,10 +269,7 @@ async function deleteProfessional(professionalId) {
     
     try {
         const response = await fetch(`${API_BASE_URL}/professionals/${professionalId}`, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': API_AUTH
-            }
+            method: 'DELETE'
         });
         
         if (!response.ok) {
