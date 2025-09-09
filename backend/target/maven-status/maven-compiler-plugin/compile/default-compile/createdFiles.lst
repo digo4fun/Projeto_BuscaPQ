@@ -1,0 +1,10 @@
+com/buscapq/linkedinsearch/service/ProfessionalService.class
+com/buscapq/linkedinsearch/dto/SearchRequest.class
+com/buscapq/linkedinsearch/dto/LinkedinProfile.class
+com/buscapq/linkedinsearch/controller/ProfessionalController.class
+com/buscapq/linkedinsearch/config/WebConfig.class
+com/buscapq/linkedinsearch/model/Professional.class
+com/buscapq/linkedinsearch/controller/SearchController.class
+com/buscapq/linkedinsearch/repository/ProfessionalRepository.class
+com/buscapq/linkedinsearch/service/LinkedinSearchService.class
+com/buscapq/linkedinsearch/LinkedinSearchApplication.class

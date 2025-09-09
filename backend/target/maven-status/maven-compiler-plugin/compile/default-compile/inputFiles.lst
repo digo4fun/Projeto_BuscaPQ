@@ -1,0 +1,10 @@
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/controller/SearchController.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/service/ProfessionalService.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/LinkedinSearchApplication.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/repository/ProfessionalRepository.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/controller/ProfessionalController.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/dto/LinkedinProfile.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/service/LinkedinSearchService.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/config/WebConfig.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/dto/SearchRequest.java
+/home/ubuntu/Projeto_BuscaPQ/backend/src/main/java/com/buscapq/linkedinsearch/model/Professional.java
