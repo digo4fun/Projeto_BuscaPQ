@@ -11,12 +11,18 @@ function initializeApp() {
     const searchForm = document.getElementById('search-form');
     searchForm.addEventListener('submit', handleSearch);
     
+    const jobDescriptorForm = document.getElementById('job-descriptor-form');
+    if (jobDescriptorForm) {
+        jobDescriptorForm.addEventListener('submit', handleJobDescriptorSubmit);
+    }
+    
     showSearchPage();
 }
 
 function showSearchPage() {
     document.getElementById('search-page').classList.add('active');
     document.getElementById('stored-page').classList.remove('active');
+    document.getElementById('job-descriptor-page').classList.remove('active');
     
     document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active');
@@ -27,6 +33,7 @@ function showSearchPage() {
 function showStoredPage() {
     document.getElementById('search-page').classList.remove('active');
     document.getElementById('stored-page').classList.add('active');
+    document.getElementById('job-descriptor-page').classList.remove('active');
     
     document.querySelectorAll('.nav-link').forEach(link => {
         link.classList.remove('active');
@@ -333,4 +340,123 @@ function formatDate(dateString) {
         hour: '2-digit',
         minute: '2-digit'
     });
+}
+
+function showJobDescriptorPage() {
+    document.getElementById('search-page').classList.remove('active');
+    document.getElementById('stored-page').classList.remove('active');
+    document.getElementById('job-descriptor-page').classList.add('active');
+    
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    document.querySelector('[onclick="showJobDescriptorPage()"]').classList.add('active');
+}
+
+async function handleJobDescriptorSubmit(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const jobRequest = {
+        primarySkill: formData.get('primarySkill'),
+        secondarySkill: formData.get('secondarySkill'),
+        otherSkills: formData.get('otherSkills'),
+        seniority: formData.get('seniority')
+    };
+    
+    showJobLoading(true);
+    hideJobResult();
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/job-descriptor/generate`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(jobRequest)
+        });
+        
+        if (!response.ok) {
+            throw new Error(`Erro na geração: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            displayJobDescription(result.jobDescription);
+            showAlert('Job description gerado com sucesso!', 'success');
+        } else {
+            throw new Error(result.errorMessage || 'Erro desconhecido');
+        }
+        
+    } catch (error) {
+        console.error('Erro ao gerar job description:', error);
+        showAlert('Erro ao gerar job description. Tente novamente.', 'error');
+    } finally {
+        showJobLoading(false);
+    }
+}
+
+function displayJobDescription(jobDescription) {
+    const contentDiv = document.getElementById('job-description-content');
+    const resultDiv = document.getElementById('job-result');
+    
+    contentDiv.textContent = jobDescription;
+    resultDiv.classList.remove('hidden');
+}
+
+function copyJobDescription() {
+    const contentDiv = document.getElementById('job-description-content');
+    const text = contentDiv.textContent;
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showAlert('Job description copiado para a área de transferência!', 'success');
+        }).catch(() => {
+            fallbackCopyToClipboard(text);
+        });
+    } else {
+        fallbackCopyToClipboard(text);
+    }
+}
+
+function fallbackCopyToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showAlert('Job description copiado para a área de transferência!', 'success');
+    } catch (err) {
+        showAlert('Erro ao copiar. Selecione o texto manualmente.', 'error');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+function restartJobDescriptor() {
+    const form = document.getElementById('job-descriptor-form');
+    form.reset();
+    hideJobResult();
+    showAlert('Formulário reiniciado!', 'info');
+}
+
+function showJobLoading(show) {
+    const loading = document.getElementById('job-loading');
+    if (show) {
+        loading.classList.remove('hidden');
+    } else {
+        loading.classList.add('hidden');
+    }
+}
+
+function hideJobResult() {
+    const jobResult = document.getElementById('job-result');
+    jobResult.classList.add('hidden');
 }

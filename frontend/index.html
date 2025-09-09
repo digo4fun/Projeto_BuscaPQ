@@ -28,6 +28,12 @@
                         Perfis Salvos
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showJobDescriptorPage()">
+                        <i class="fas fa-robot"></i>
+                        Job Descriptor IA
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -114,6 +120,107 @@
                 <div id="stored-results" class="stored-results">
                     <div id="stored-container" class="stored-container">
                         <!-- Perfis salvos serão inseridos aqui -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Página de Job Descriptor IA -->
+        <div id="job-descriptor-page" class="page">
+            <div class="container">
+                <h2 class="page-title">
+                    <i class="fas fa-robot"></i>
+                    Job Descriptor IA
+                </h2>
+                
+                <form id="job-descriptor-form" class="search-form">
+                    <div class="form-group">
+                        <label for="primary-skill">
+                            <i class="fas fa-star"></i>
+                            Perfil Principal:
+                        </label>
+                        <select id="primary-skill" name="primarySkill" required>
+                            <option value="">Selecione o perfil principal</option>
+                            <option value="Java">Java</option>
+                            <option value=".NET">.NET</option>
+                            <option value="Python">Python</option>
+                            <option value="Angular">Angular</option>
+                            <option value="React">React</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="GoLang">GoLang</option>
+                            <option value="Cobol">Cobol</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="secondary-skill">
+                            <i class="fas fa-plus"></i>
+                            Perfil Secundário:
+                        </label>
+                        <select id="secondary-skill" name="secondarySkill">
+                            <option value="">Não necessário</option>
+                            <option value="Java">Java</option>
+                            <option value=".NET">.NET</option>
+                            <option value="Python">Python</option>
+                            <option value="Angular">Angular</option>
+                            <option value="React">React</option>
+                            <option value="JavaScript">JavaScript</option>
+                            <option value="GoLang">GoLang</option>
+                            <option value="Cobol">Cobol</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="other-skills">
+                            <i class="fas fa-code"></i>
+                            Outros Skills Desejados:
+                        </label>
+                        <input type="text" id="other-skills" name="otherSkills" 
+                               placeholder="Ex: Docker, Kubernetes, Microservices">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="seniority">
+                            <i class="fas fa-chart-line"></i>
+                            Senioridade:
+                        </label>
+                        <select id="seniority" name="seniority" required>
+                            <option value="">Selecione a senioridade</option>
+                            <option value="Junior">Junior</option>
+                            <option value="Pleno">Pleno</option>
+                            <option value="Senior">Senior</option>
+                            <option value="Especialista">Especialista</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-magic"></i>
+                        Gerar Job Description
+                    </button>
+                </form>
+                
+                <div id="job-loading" class="loading hidden">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    Gerando job description com IA...
+                </div>
+                
+                <div id="job-result" class="search-results hidden">
+                    <h3 class="results-title">
+                        <i class="fas fa-file-alt"></i>
+                        Job Description Gerado
+                    </h3>
+                    <div id="job-description-content" class="job-description-content">
+                        <!-- Job description será inserido aqui -->
+                    </div>
+                    <div class="results-actions">
+                        <button id="copy-job-description" class="btn btn-success" onclick="copyJobDescription()">
+                            <i class="fas fa-copy"></i>
+                            Copiar Job Description
+                        </button>
+                        <button id="restart-job-description" class="btn btn-primary" onclick="restartJobDescriptor()">
+                            <i class="fas fa-refresh"></i>
+                            Reiniciar Job Description
+                        </button>
                     </div>
                 </div>
             </div>
